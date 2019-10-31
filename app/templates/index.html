@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block main %}
+    <div class="frame">
+        <div class="col1">
+            <div class="options">
+                <h5><b>Select to explore</b></h5>
+                <input type="radio" name="overall" value="timeline"> Timeline
+                <br>
+                <input type="radio" name="overall" value="continent"> Continents
+                <br>
+                <input type="radio" name="overall" value="region"> World Regions
+                <br>
+                <input type="radio" name="overall" value="topten"> Top 10 Countries
+                <br>
+                <input type="radio" name="overall" value="map"> World Map
+                <br>
+            </div>
+        </div>
+        <div class="col2">
+            <img class="img-fluid" src="static/timeline.png" alt="">
+        </div>
+    </div>
+{% endblock %}

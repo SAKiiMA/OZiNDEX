@@ -1,5 +1,62 @@
+/* to make sure column elemnts are rendered full-screen-height */
+html, body, .frame
+{
+    height: 100%;
+    margin: 0;
+}
+
+/* ensure border & padding are included in width */
+* {box-sizing: border-box;}
+
 nav .navbar-brand
 {
     color: #ffff00 !important;
     font-size: xx-large;
+}
+
+footer
+{
+    bottom: 0;
+    height: 30px;
+    width: 100%;
+}
+
+
+.col1
+{
+    width: 20%;
+    height: 100%;
+    background-color: #bfbfbf;
+    float: left;
+    padding: 5px;
+}
+
+.col2
+{
+    width: 80%;
+    height: 100%;
+    background-color: white;
+    float: left;
+    padding: 25px;
+}
+
+.row:after
+{
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.options
+{
+    font-family: Verdana, Georgia, "Times New Roman";
+    font-size: 18px;
+}
+
+/* columns stack on top of each other on small screens */
+@media only screen and (max-width: 768px) {
+  [class*="col"] {
+    width: 100%;
+    height: auto;
+  }
 }
