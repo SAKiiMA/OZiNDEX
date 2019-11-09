@@ -3,6 +3,24 @@
 {% block title %}Error{% endblock %}
 
 {% block main %}
-    <p>Error {{code}}</p>
-    <p>{{message}}</p>
+    <div class="errocode">
+        <h5>Error {{code}}</h5>
+        <p>{{name}}</p>
+    </div>
+    <div class="more">
+        <a href="#">more...</a>
+    </div>
+    <div class="errormessage">
+        <p>{{ description }}</p>
+    </div>
+
+    <script>
+        $(document).ready(function(){
+            $("a").click(function(){
+                $(this).hide();
+                $(".errormessage").show()
+            });
+        });
+    </script>
+
 {% endblock %}

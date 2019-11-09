@@ -5,22 +5,46 @@
 {% block main %}
     <div class="frame">
         <div class="col1">
-            <div class="options">
+            <div class="explore">
                 <h5><b>Select to explore</b></h5>
-                <input type="radio" name="overall" value="timeline"> Timeline
-                <br>
-                <input type="radio" name="overall" value="continent"> Continents
-                <br>
-                <input type="radio" name="overall" value="region"> World Regions
-                <br>
-                <input type="radio" name="overall" value="topten"> Top 10 Countries
-                <br>
-                <input type="radio" name="overall" value="map"> World Map
-                <br>
+                <form class="option" action="{{ url_for('index') }}" method="get">
+                    <input type="radio" name="overopt" id="overopt" value="timeline"> Timeline
+                    <br>
+                    <input type="radio" name="overopt" id="overopt" value="continent"> Continents
+                    <br>
+                    <input type="radio" name="overopt" id="overopt" value="region"> World Regions
+                    <br>
+                    <input type="radio" name="overopt" id="overopt" value="topten"> Top 10 Countries
+                    <br>
+                    <input type="radio" name="overopt" id="overopt" value="Asia"> Top 5 Asia
+                    <br>
+                    <input type="radio" name="overopt" id="overopt" value="Europe"> Top 5 Europe
+                    <br>
+                    <input type="radio" name="overopt" id="overopt" value="Africa"> Top 5 Africa
+                    <br>
+                    <input type="radio" name="overopt" id="overopt" value="America"> Top 5 America
+                    <br>
+                    <input type="radio" name="overopt" id="overopt" value="map"> World Map
+                    <br>
+                </form>
             </div>
         </div>
         <div class="col2">
-            <img class="img-fluid" src="static/timeline.png" alt="">
+            <p class="test"></p>
+            <div class="container">
+                <img class="img-fluid mx-auto d-block" src="static/aus.jpg" alt="">
+            </div>
+
         </div>
     </div>
+
+    <script>
+        $(document).ready(function(){
+            $("input[name='overopt']").change(function(){
+                $.get("/option", {"option": $(this).val()}, function(data){
+                    $('img').attr('src', data);
+                });
+            });
+        });
+    </script>
 {% endblock %}

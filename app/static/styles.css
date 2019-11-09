@@ -5,6 +5,7 @@ html, body, .frame
     margin: 0;
 }
 
+
 /* ensure border & padding are included in width */
 * {box-sizing: border-box;}
 
@@ -16,6 +17,7 @@ nav .navbar-brand
 
 footer
 {
+    position: fixed;
     bottom: 0;
     height: 30px;
     width: 100%;
@@ -26,7 +28,7 @@ footer
 {
     width: 20%;
     height: 100%;
-    background-color: #bfbfbf;
+    background-color: #d9d9d9;
     float: left;
     padding: 5px;
 }
@@ -37,19 +39,19 @@ footer
     height: 100%;
     background-color: white;
     float: left;
-    padding: 25px;
+    padding: 1px;
 }
 
-.row:after
+.frame:after
 {
     content: "";
     display: table;
     clear: both;
 }
 
-.options
+.explore
 {
-    font-family: Verdana, Georgia, "Times New Roman";
+    font-family: Verdana, Georgia, Arial;
     font-size: 18px;
 }
 
@@ -59,4 +61,55 @@ footer
     width: 100%;
     height: auto;
   }
+}
+
+.errocode
+{
+    background-color: #cce0ff;
+    height: auto;
+    border-radius: 5px;
+    width: 80%;
+    margin: auto;
+    margin-top: 50px;
+    margin-bottom: 5px;
+
+}
+
+.errocode h5, .errocode p
+{
+    font-size: 30px;
+    font-weight: bold;
+    font-family: Verdana, Georgia, "Time New Romans";
+    padding-left: 10px;
+}
+
+.errormessage
+{
+    display: none;
+    background-color: #cce0ff;
+    height: auto;
+    border-radius: 5px;
+    width: 80%;
+    margin: auto;
+    margin-top: 5px;
+
+    font-size: 18px;
+    font-weight: bold;
+    font-family: Verdana, Georgia, "Time New Romans";
+    padding-left: 10px;
+}
+
+.more
+{
+    margin: auto;
+    width: 80%;
+
+    font-size: 16px;
+    font-family: Verdana, Georgia, "Time New Romans";
+    padding-left: 10px;
+}
+
+.more a:hover
+{
+    text-decoration: none;
 }
