@@ -1,0 +1,61 @@
+{% extends "layout.html" %}
+
+{% block title %}Compare{% endblock %}
+
+{% block main %}
+    <div class="frame">
+        <!-- two columns layout -->
+        <div class="col1">
+            <div class="compare">
+                <select class="nation1">
+                    <!-- drop-down created from all countries in dataset -->
+                    <option value="" selected disabled>Country Name...</option>
+                    {% for nation in nations %}
+                        <option value="{{nation}}">{{nation}}</option>
+                    {% endfor %}
+                </select>
+
+                <select class="nation2">
+                    <option value="" selected disabled>Country Name...</option>
+                    {% for nation in nations %}
+                        <option value="{{nation}}">{{nation}}</option>
+                    {% endfor %}
+                </select>
+
+                <input type="checkbox" class="comparebox" value="compare"> Compare
+            </div>
+        </div>
+        <div class="col2">
+            <p class="demo"></p>
+            <div class="container">
+                <img class="img-fluid mx-auto d-block" src="static/aus.jpg" alt="">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // give access to second drop-down if user want to compare
+        $(document).ready(function(){
+            $(".comparebox").change(function(){
+                if ($(".comparebox").is(":checked"))
+                    $(".nation2").show();
+                else
+                    $(".nation2").hide();
+                    $(".nation2").val("");
+
+                    //remove second line-chart if user unchecked the compare option
+                    $.get("/compare_chart", {"nation1": $(".nation1").val(), "nation2": ""}, function(data){
+                        $('img').attr('src', data);
+                    });
+            });
+        });
+        // fetches line-charts any time drop-downs change
+        $(document).ready(function(){
+            $(".nation1, .nation2").change(function(){
+                $.get("/compare_chart", {"nation1": $(".nation1").val(), "nation2": $(".nation2").val()}, function(data){
+                    $('img').attr('src', data);
+                });
+            });
+        });
+    </script>
+{% endblock %}

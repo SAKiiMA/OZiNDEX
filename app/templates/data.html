@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+
+{% block title %}Data{% endblock %}
+
+{% block main %}
+    <div class="table-responsive">
+        <table class="table-sm table-hover table-striped">
+            <thead class="">
+                <!-- generates table header out of a list -->
+                <tr class="table-info">
+                    {% for head in header %}
+                        <th>{{head}}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                <!-- generates table rows out of a list -->
+                {% for row in data %}
+                    <tr>
+                        {% for value in row %}
+                            <td>{{ value }}</td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

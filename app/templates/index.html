@@ -4,6 +4,7 @@
 
 {% block main %}
     <div class="frame">
+        <!-- two columns layout -->
         <div class="col1">
             <div class="explore">
                 <h5><b>Select to explore</b></h5>
@@ -30,15 +31,15 @@
             </div>
         </div>
         <div class="col2">
-            <p class="test"></p>
+            <p class="demo"></p>
             <div class="container">
                 <img class="img-fluid mx-auto d-block" src="static/aus.jpg" alt="">
             </div>
-
         </div>
     </div>
 
     <script>
+        // fetches charts based on user-selected option
         $(document).ready(function(){
             $("input[name='overopt']").change(function(){
                 $.get("/option", {"option": $(this).val()}, function(data){

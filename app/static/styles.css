@@ -15,6 +15,7 @@ nav .navbar-brand
     font-size: xx-large;
 }
 
+/* fixed to bottom footer */
 footer
 {
     position: fixed;
@@ -112,4 +113,36 @@ footer
 .more a:hover
 {
     text-decoration: none;
+}
+
+.compare
+{
+    font-size: 16px;
+    font-family: Verdana;
+}
+
+.nation1, .nation2
+{
+    padding: 6px 10px;
+    width: 100%;
+    border: none;
+    border-radius: 4px;
+    background-color: #008080;
+    color: white;
+}
+
+.nation2
+{
+    margin-top: 8px;
+    display: none;
+}
+
+.comparebox
+{
+    margin-top: 12px;
+}
+
+.table-sm
+{
+    font-size: 0.8rem;
 }

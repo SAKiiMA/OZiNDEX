@@ -30,7 +30,16 @@ def get_df():
         columns={"Continent":"continent", "Region":"region", "Year":"country"},
         inplace=True)
     df.set_index('country', drop=True, inplace=True)
+
+    # merging to coluns related to year 1959-60
+    df["1959–60"] = df[['Jan-Jun 1959', '1959–60']].sum(axis=1).values
+    df.drop(["Jan-Jun 1959"], axis=1, inplace=True)
+
     year_list = df.columns.tolist()[2:]
+
+    # cast a numeric type to all digits (migration numbers)
+    df[year_list] = df[year_list].apply(pd.to_numeric)
+
     df["sum"] = df[year_list].sum(axis=1)
 
     return df
@@ -113,7 +122,7 @@ def genchart(option, df):
 
         # Generating the pie chart
         chart = ax.pie(
-            df.groupby('continent').sum().values,
+            df.groupby('continent').sum()['sum'].values,
             colors=["#999999", "#666666", "#e6e600", "#008080", "#808080"],
             explode=[.04,.04,0,0,.04],
             autopct="%1.1f%%",
@@ -225,5 +234,58 @@ def genchart(option, df):
         buf = BytesIO()
         fig.savefig(buf, format="png")
         infograph = base64.b64encode(buf.getbuffer()).decode("ascii")
+
+    return f"data:image/png;base64,{infograph}"
+
+
+def country_chart(nation1, nation2, df):
+    """ generates and/or compare historical line chart for each country """
+
+    fig = Figure(figsize=(18, 10), dpi=100)
+    canvas = FigureCanvasAgg(fig)
+    ax1 = fig.subplots()
+
+    year_list = df.columns[2:-1]
+
+    if nation1:
+        line1 = ax1.plot(
+            df.loc[nation1, year_list].index,
+            df.loc[nation1, year_list].values,
+            '-o',
+            color='#660000',
+            label="{} : {:,.0f}".format(nation1, df.loc[nation1, 'sum']),)
+        lines = line1
+        title = nation1
+
+    if nation2:
+        ax2 = ax1.twinx()
+        line2 = ax2.plot(
+            df.loc[nation2, year_list].index,
+            df.loc[nation2, year_list].values,
+            '--o',
+            color='#006666',
+            label="{} : {:,.0f}".format(nation2, df.loc[nation2, 'sum']),)
+        ax2.set_ylabel("\nNumber of Migrants - {}".format(nation2), dict(color='#006666', fontsize=16))
+        ax2.tick_params(axis='y', labelsize=14, colors='#006666')
+        lines = line2
+        title = nation2
+
+    if nation1 and nation2:
+        title = nation1 + " Compared to " + nation2
+        lines = line1 + line2
+
+    ax1.set_title("{}\nHistorical Migration to Australia [1945 - 2018]".format(title), dict(fontsize=18))
+    ax1.set_xlabel("Year", dict(color='k', fontsize=16))
+    ax1.set_ylabel("Number of Migrants - {}\n".format(nation1), dict(color='#660000', fontsize=16))
+    ax1.tick_params(axis='x', labelrotation=90, labelsize=13, colors='k')
+    ax1.tick_params(axis='y', labelsize=14, colors='#660000')
+
+    labels = [line.get_label() for line in lines]
+    ax1.legend(lines, labels, loc='upper left', fontsize=18)
+
+    # Saving the chart in memory
+    buf = BytesIO()
+    fig.savefig(buf, format="png")
+    infograph = base64.b64encode(buf.getbuffer()).decode("ascii")
 
     return f"data:image/png;base64,{infograph}"
