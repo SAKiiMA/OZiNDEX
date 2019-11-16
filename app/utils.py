@@ -289,3 +289,26 @@ def country_chart(nation1, nation2, df):
     infograph = base64.b64encode(buf.getbuffer()).decode("ascii")
 
     return f"data:image/png;base64,{infograph}"
+
+
+def hist(df):
+    """ generates and returns a histogram """
+
+    fig = Figure(figsize=(8, 6), dpi=100)
+    canvas = FigureCanvasAgg(fig)
+    ax = fig.subplots()
+
+    year_list = df.columns[2:-1]
+    ax.hist(df[year_list].sum(axis=0).values, 25, color="#0d3300", edgecolor="white")
+
+    ax.set_title("Histogram for All Migrants Each Year\n", dict(size=12, color='black'))
+    ax.set_xlabel("\nNumber of Migrants", dict(size=12, color='black'))
+    ax.set_ylabel("Frequency\n", dict(size=12, color='black'))
+    ax.tick_params(axis='both', labelsize=10, colors='black')
+
+    # Saving the chart in memory
+    buf = BytesIO()
+    fig.savefig(buf, format="png")
+    infograph = base64.b64encode(buf.getbuffer()).decode("ascii")
+
+    return f"data:image/png;base64,{infograph}"

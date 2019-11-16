@@ -5,7 +5,7 @@ from werkzeug.exceptions import HTTPException, InternalServerError
 from tempfile import mkdtemp
 
 # see utils.py for utility functions
-from utils import errorfeedback, genchart, get_df, country_chart
+from utils import errorfeedback, genchart, get_df, country_chart, hist
 
 
 app = Flask(__name__)
@@ -58,14 +58,33 @@ def compare_chart():
 
 
 
+@app.route("/stats", methods=['GET'])
+def stats():
+    """ return some statistical data to be viewed in a table """
+
+    year_list = df.columns[2:-1]
+    table = []
+
+    table.append(["TOTAL NUMBER OF MIGRANTS", "{:,.0f}".format(df["sum"].sum()), "Over a Period of 73 Years From 1945 to 2018"])
+    table.append(["AVERAGE NUMBER OF MIGRANTS", "{:,.0f}".format(df["sum"].sum() / 73), "-"])
+    table.append(["MINIMUM NUMBER OF MIGRANTS FROM A COUNTRY", "{:,.0f}".format(df["sum"].min()), "'Chad' from 1945 to 2018"])
+    table.append(["MAXIMUM NUMBER OF MIGRANTS FROM A COUNTRY", "{:,.0f}".format(df["sum"].max()), "'UK & Ireland' from 1945 to 2018"])
+    table.append(["MINIMUM NUMBER OF MIGRANTS IN A YEAR", "{:,.0f}".format(df[year_list].sum(axis=0).min()), "Almost Two Years from Oct 1945 to Jun 1947"])
+    table.append(["MAXIMUM NUMBER OF MIGRANTS IN A YEAR", "{:,.0f}".format(df[year_list].sum(axis=0).max()), "from 2012 to 2013"])
+    table.append(["MAXIMUM NUMBER OF MIGRANTS FROM A SINGLE COUNTRY AND IN A YEAR", "{:,.0f}".format(df[year_list].max().max()), "UK & Ireland from 1968 to 1969 "])
+
+    return render_template("stats.html", table=table, image=hist(df))
+
+
+
 @app.route("/data", methods=['GET'])
 def data():
     """ renders all data frame as a html table """
 
-    # creating to list out of data frame to be used in html template
+    # creating a list out of data frame to be used in html template
     header = df.reset_index().columns.tolist()
     data = df.reset_index().values.tolist()
-    
+
     return render_template("data.html", header=header, data=data)
 
 
