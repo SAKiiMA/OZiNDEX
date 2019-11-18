@@ -13,6 +13,9 @@ from matplotlib import rcParams
 rcParams.update({'figure.autolayout': True})
 mplstyle.use('ggplot')
 
+import folium
+import json
+
 
 
 
@@ -64,8 +67,7 @@ def genchart(option, df):
         # improving chart appearance
         ax.set_title(
             "Australia  Historical Migration [From 1945 to 2018]\n",
-            {'fontsize': 18,},
-            loc='center')
+            {'fontsize': 18, "color":"k"}, loc='center')
         ax.set_ylabel("Number of Migrants\n", fontsize=16, color='k')
         ax.set_xlabel("Year", fontsize=16, color='k')
         ax.set_yticks(np.arange(0, 300000, 20000))
@@ -131,7 +133,7 @@ def genchart(option, df):
             textprops=dict(size=16, weight='bold'))
 
         # adding title to the chart
-        ax.set_title("Migration per Continent \nAustralia [1945 - 2018]", fontsize=18, fontweight='bold')
+        ax.set_title("\nMigration per Continent \nAustralia [1945 - 2018]", fontsize=18, fontweight='bold')
 
         # adding legend to the chart
         leg_hand = []
@@ -234,6 +236,39 @@ def genchart(option, df):
         buf = BytesIO()
         fig.savefig(buf, format="png")
         infograph = base64.b64encode(buf.getbuffer()).decode("ascii")
+
+    if option == "map":
+        """ generating a leaflet map using folium library"""
+
+        # loading geojson overlay
+        with open ("world.json") as data:
+            wjson = json.load(data)
+
+        year_list = df.columns[2:-1]
+        # creating dataframe required to used during parsing geojson overlay
+        map_df=df[year_list].sum(axis=1).to_frame().reset_index()
+        # just for more readable legend on the map
+        map_df[0] = map_df[0] / 1000000
+
+        MigMap = folium.Map(location=[30, 10], zoom_start=1.5, tiles='OpenStreetMap')
+
+        folium.Choropleth(
+            geo_data=wjson,
+            name='choropleth',
+            data=map_df,
+            columns=['country', 0],
+            key_on='feature.properties.name',
+            fill_color='YlOrRd',
+            fill_opacity=0.8,
+            line_opacity=0.2,
+            nan_fill_color='white',
+            nan_fill_opacity=0.3,
+            legend_name='Migration to Australia from 1945 to 2018 (million)',
+            bins=[0, 0.15, 0.3, 0.5, 1, 2.5]
+        ).add_to(MigMap)
+
+        return MigMap._repr_html_()
+        #return MigMap._repr_html_() #it does the same as above line of code
 
     return f"data:image/png;base64,{infograph}"
 

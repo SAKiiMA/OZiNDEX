@@ -15,6 +15,9 @@
         <!-- ajax documentation at https://jquery.com -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
+        <!-- icon library. see  https://fontawesome.com/icons?d=gallery -->
+        <script src="https://kit.fontawesome.com/520603e385.js" crossorigin="anonymous"></script>
+
         <title>OZiNDEX: {% block title %}{% endblock %}</title>
     </head>
 
@@ -26,11 +29,14 @@
             </button>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active"><a class="nav-link" href="/compare">Country(s)</a></li>
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active"><a class="nav-link" href="/compare">Compare</a></li>
                     <li class="nav-item active"><a class="nav-link" href="/stats">Statistics</a></li>
                     <li class="nav-item active"><a class="nav-link" href="/data">Dataset</a></li>
                 </ul>
+            </div>
+            <div class="giticon">
+                <a href="https://github.com/SAKiiMA/OZiNDEX"><i class="fab fa-github fa-lg" style="color:white"></i></a>
             </div>
         </nav>
 

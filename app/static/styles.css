@@ -145,7 +145,7 @@ footer
 .data_table table
 {
     font-size: 0.8rem;
-    margin-top: 5px;
+    margin: 2px;
 }
 
 .stats_table table
@@ -154,5 +154,5 @@ footer
     font-family: Verdana, sans-serif;
     border-collapse: collapse;
     width: 100%;
-    margin-top: 5px;
+    padding: 2px;
 }

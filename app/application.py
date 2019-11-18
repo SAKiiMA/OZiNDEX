@@ -63,6 +63,7 @@ def stats():
     """ return some statistical data to be viewed in a table """
 
     year_list = df.columns[2:-1]
+    # list of info to be viewed in a table
     table = []
 
     table.append(["TOTAL NUMBER OF MIGRANTS", "{:,.0f}".format(df["sum"].sum()), "Over a Period of 73 Years From 1945 to 2018"])

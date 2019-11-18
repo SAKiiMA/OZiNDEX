@@ -31,10 +31,10 @@
             </div>
         </div>
         <div class="col2">
-            <p class="demo"></p>
             <div class="container">
                 <img class="img-fluid mx-auto d-block" src="static/aus.jpg" alt="">
             </div>
+            <div class="map"></div>
         </div>
     </div>
 
@@ -42,9 +42,18 @@
         // fetches charts based on user-selected option
         $(document).ready(function(){
             $("input[name='overopt']").change(function(){
-                $.get("/option", {"option": $(this).val()}, function(data){
-                    $('img').attr('src', data);
-                });
+                if ($(this).val() !== "map"){
+                    $.get("/option", {"option": $(this).val()}, function(data){
+                        $(".map").html("")
+                        $('img').attr('src', data);
+                    });
+                }
+                else {
+                    $('img').attr('src', "");
+                    $.get("/option", {"option": $(this).val()}, function(data){
+                        $(".map").html(data)
+                    });
+                }
             });
         });
     </script>
