@@ -29,6 +29,20 @@ The **`flask`** web application [(here)](https://github.com/SAKiiMA/OZiNDEX/tree
 
 `matplotlib` code lines in application are a bit different from what you will see in `jupyter notebook`. Using `pyplot` has been avoided not to cause `memory leak` if not implemented properly.
 
+Most of infographics are happening on home page and “compare” page. On home page there are few chart options to select providing an overall view of data.
+
+![](README/timeline.png)
+![](README/continents.png)
+![](README/topcountries.png)
+![](README/worldmap.png)
+
+Through compare page you can access an individual country’s migration history or compare them to see how economical or political situations affected trends in migration.
+
+![](README/iran.png)
+![](README/turkey.png)
+
+Also some statistics and the whole dataset are viewed acordingly.
+
 
 ---
 
