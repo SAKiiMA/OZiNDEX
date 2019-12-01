@@ -89,6 +89,11 @@ def data():
     return render_template("data.html", header=header, data=data)
 
 
+@app.route("/notebook", methods=['GET'])
+def notebook():
+    """ to render an html format of jupyter notebook """
+    return render_template("notebook.html")
+
 
 @app.errorhandler(Exception)
 def exception(e):

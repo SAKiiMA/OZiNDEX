@@ -156,3 +156,20 @@ footer
     width: 100%;
     padding: 2px;
 }
+
+.about_data
+{
+    padding: 10px 15px 5px 15px;
+    font-family: Verdana;
+}
+
+.about_data code
+{
+    color: black;
+    background-color: #f2f2f2;
+}
+
+.about_data a:hover
+{
+    text-decoration: none;
+}

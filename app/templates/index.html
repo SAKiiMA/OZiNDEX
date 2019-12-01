@@ -31,8 +31,40 @@
             </div>
         </div>
         <div class="col2">
+            <div class="about_data">
+                <h4>Australia's Historical Migration</h4>
+                <h5>Visualisation & Analytic</h5>
+                <p>
+                    This is basically using <code>Python</code> generating some <b><i>infographics</i></b>
+                    and <b><i>analytic</i></b> material on a dataset regarding
+                    history of <i>migration to Australia</i>.
+                </p>
+                <h5>Dataset</h5>
+                <ul>
+                    <li><em>Data From Year 1945 to Year 2017</em></li>
+                    <li><em>Data Source: Australia Government; Department of Home Affairs</em></li>
+                    <li><em>Data Released : April 2019</em></li>
+                    <li><em>Dataset Contains About 14,000 Pieces of Data (<code>185 rows x 76 columns</code>)</em></li>
+                    <li><em><a href="https://www.homeaffairs.gov.au/research-and-statistics/statistics/visa-statistics/live/historical-migration">Link to Data Source</a></em></li>
+                </ul>
+                <p>
+                    Original dataset has been (considerably) wrangled (in spreadsheet software) before
+                    being loaded as a pandas dataframe. Considering the fact that this is a historical
+                    dataset with world countries, numbers are not straightforward as countries' border
+                    have changed during the time. Of many cases to mention is:
+                    <ul>
+                        <li>South & North Korea numbers are reported together in dataset as “Korea S&N”</li>
+                        <li>Numbers that belong to Soviet Union are added to the Russia</li>
+                        <li>All data reported as "<5" has been replaced with zero.</li>
+                        <li>All data that was not allocated to a known country have been ignored.
+                            Such as: “other commonwealth countries”, “not stated”, “at sea and not
+                            stated”, etc.</li>
+                        <li>All countries with migration numbers less than 500 over whole period of 73 years have been removed.</li>
+                    </ul>
+                </p>
+            </div>
             <div class="container">
-                <img class="img-fluid mx-auto d-block" src="static/aus.jpg" alt="">
+                <img class="img-fluid mx-auto d-block" src="" alt="">
             </div>
             <div class="map"></div>
         </div>
@@ -44,6 +76,7 @@
             $("input[name='overopt']").change(function(){
                 if ($(this).val() !== "map"){
                     $.get("/option", {"option": $(this).val()}, function(data){
+                        $(".about_data").html("");
                         $(".map").html("")
                         $('img').attr('src', data);
                     });
@@ -51,6 +84,7 @@
                 else {
                     $('img').attr('src', "");
                     $.get("/option", {"option": $(this).val()}, function(data){
+                        $(".about_data").html("");
                         $(".map").html(data)
                     });
                 }
