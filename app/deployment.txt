@@ -1,0 +1,4 @@
+>> heroku
+$ heroku login
+$ heroku apps:create ozindex
+$ git subtree push --prefix app heroku master
