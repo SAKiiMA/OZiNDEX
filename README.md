@@ -3,6 +3,8 @@
 
 This is basically some lines of code for generating **`infographics`** and **`analytic`** material on a dataset regarding history of migration to Australia.
 
+#### deployed on heroku: [ozindex](https://ozindex.herokuapp.com/)
+
 ---
 
 ### Dataset
