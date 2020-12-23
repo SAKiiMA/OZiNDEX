@@ -27,6 +27,12 @@ Loaded dataset contains about 14,000 piece of data (`185 rows x 76 columns`)
 
 ### Web Application
 
+#### To Run the App
+_from app/ forlder:_  
+`$ pip install -r requirements.txt`  
+`$ export FLASK_APP=application.py`  
+`$ flask run`
+
 The **`flask`** web application [(here)](https://github.com/SAKiiMA/OZiNDEX/tree/master/app) is more of a personal touch and its main functionality is providing a better access to data.  
 
 `matplotlib` code lines in application are a bit different from what you will see in `jupyter notebook`. Using `pyplot` has been avoided not to cause `memory leak` if not implemented properly.
